@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="app/puyuetianeditor/template/css/PytEditor.css">
+<script id="PytEditorScript" data-pc="{htmlspecialchars($_G['TEMP']['PC'],ENT_QUOTES)}" data-phone="{htmlspecialchars($_G['TEMP']['PHONE'],ENT_QUOTES)}" data-config="{htmlspecialchars($_G['TEMP']['CONFIG'],ENT_QUOTES)}">
+	var PytEditorPhoneEasypostread = Cnum("{$_G['SET']['APP_PUYUETIANEDITOR_PHONEEASYPOSTREAD']}");
+	var PytEditorPhoneEasypostreply = Cnum("{$_G['SET']['APP_PUYUETIANEDITOR_PHONEEASYPOSTREPLY']}");
+	var PytEditorPCEasypostread = Cnum("{$_G['SET']['APP_PUYUETIANEDITOR_PCEASYPOSTREAD']}");
+	var PytEditorPCEasypostreply = Cnum("{$_G['SET']['APP_PUYUETIANEDITOR_PCEASYPOSTREPLY']}");
+	if($(window).width() > 1000) {
+		eval($('#PytEditorScript').data('pc'));
+		var PytEditorHeight = Cnum("{$_G['SET']['APP_PUYUETIANEDITOR_PCHEIGHT']}");
+	} else {
+		eval($('#PytEditorScript').data('phone'));
+		var PytEditorHeight = Cnum("{$_G['SET']['APP_PUYUETIANEDITOR_PHONEHEIGHT']}");
+	}
+</script>
+<script src="app/puyuetianeditor/template/js/PytEditor.js"></script>
+<script src="app/puyuetianeditor/template/js/PytEditorInit.js"></script>

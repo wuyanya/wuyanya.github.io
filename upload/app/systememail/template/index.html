@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="app/puyuetianeditor/template/css/PytEditor.css">
+<div class="pk-row">
+	<form name="form_mail" method="post" action="">
+		<div class="pk-w-sm-12 pk-text-center pk-text-primary pk-text-xxxl pk-margin-bottom-15 pk-padding-15">
+			邮件群发应用
+		</div>
+		<div class="pk-w-sm-12 pk-margin-bottom-15">收件人：<input type="radio" name="mailtotype" onclick="form_mail.mailto.style.display='none'" value="all" title="最新的500位会员" checked />最新的500位会员
+			<input type="radio" name="mailtotype" onclick="form_mail.mailto.style.display=''" value="more" title="填写完整邮箱地址,多个用,分开" />指定地址</div>
+		<div class="pk-w-sm-12 pk-margin-bottom-15">
+			<textarea name="mailto" class="pk-textarea" rows="5" style="display: none;" placeholder="多个用,分开"></textarea>
+		</div>
+		<div class="pk-w-sm-12 pk-margin-bottom-15">
+			<input class="pk-textbox" type="text" name="mailtitle" value="" autocomplete="off" placeholder="邮件标题" required />
+		</div>
+		<div class="pk-w-sm-12 pk-margin-bottom-15">
+			<textarea name="mailcontent" class="pk-textarea" rows="12" placeholder="邮件内容"></textarea>
+		</div>
+		<div class="pk-w-sm-12 pk-margin-bottom-15">
+			<input id="sendbtn" type="button" class="pk-btn pk-btn-primary" value="发送" />
+		</div>
+		<div class="pk-w-sm-12 pk-text-xs pk-margin-bottom-15 pk-text-center" style="color:#AAAAAA">HadSky App - Email Send</div>
+	</form>
+</div>
+<script>
+	var PytConfig = 'Html,Bold,Italic,Underline,Strikethrough,Fontname,Fontsize,Forecolor,Backcolor,Justifyleft,Justifycenter,Justifyright,Link,Unlink,Code,Undo,Redo';
+</script>
+<script src="app/puyuetianeditor/template/js/PytEditor.js"></script>
+<script>
+	$(function() {
+		InitPuyuetianEditor("textarea[name=mailcontent]", function() {});
+		$('#sendbtn').on('click', function() {
+			var pid = ppp({
+				type: 4,
+				shade: 1,
+				content: "正在发送..."
+			});
+			$.post('index.php?c=app&a=systememail:index', FormDataPackaging('form[name="form_mail"]'), function(data) {
+				pkpopup.close(pid);
+				if(data['state'] == 'ok') {
+					ppp({
+						type: 3,
+						icon: 1,
+						content: data['datas']['msg']
+					});
+				} else {
+					ppp({
+						icon: 2,
+						content: data['datas']['msg']
+					});
+				}
+			});
+		});
+	});
+</script>

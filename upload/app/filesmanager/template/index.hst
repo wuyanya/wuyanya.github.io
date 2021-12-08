@@ -1,0 +1,219 @@
+<link rel="stylesheet" href="template/puyuetianUI/css/CodeMirror.min.css" />
+<script src="template/puyuetianUI/js/CodeMirror.min.js"></script>
+<script src="template/puyuetianUI/js/CodeMirror.code.min.js"></script>
+<style>
+	.div-filelist {
+		padding: 1px;
+		overflow-y: scroll;
+		max-height: 410px;
+	}
+	
+	.CodeMirror {
+		height: 100%;
+	}
+	
+	#mkdiv {
+		visibility: hidden;
+		position: fixed;
+		width: 222px;
+		border: solid 1px #333;
+		background-color: white;
+		padding: 10px;
+		font-family: "microsoft yahei";
+		border-radius: 5px;
+		z-index: 9999;
+	}
+</style>
+<a name="workarea"></a>
+<div class="pk-container">
+	<div class="pk-container" style="background-color:white">
+		<div class="pk-padding-top-15" style="padding-top:0">
+			<input id="_currentpath" type="text" class="pk-textbox" value="{$_G['TEMP']['PATH']}" readonly>
+		</div>
+		<div class="pk-padding-10" style="padding-top:0">
+			<button id="_mkbtn" type="button" class="pk-btn pk-btn-white pk-btn-sm">新建</button>
+			<button type="button" class="pk-btn pk-btn-white pk-btn-sm" onclick="gopath('')">根目录</button>
+			<button type="button" class="pk-btn pk-btn-white pk-btn-sm" onclick="gopath('app')">应用目录</button>
+			<button type="button" class="pk-btn pk-btn-white pk-btn-sm" onclick="gopath('template')">模板目录</button>
+			<button type="button" class="pk-btn pk-btn-white pk-btn-sm" onclick="gopath('uploadfiles')">上传文件目录</button>
+			<button type="button" class="pk-btn pk-btn-white pk-btn-sm" onclick="gopath('userhead')">用户头像目录</button>
+		</div>
+		<div class="pk-padding-10 pk-padding-top-0 pk-padding-bottom-0">
+			<div class="div-filelist">
+				<table class="pk-table pk-table-bordered">
+					<thead>
+						<tr>
+							<th>文件名称</th>
+							<th style="width:180px">修改时间</th>
+							<th style="width:120px;text-align:center">文件大小</th>
+							<th style="width:100px;text-align:center">管理操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{$filelist}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="pk-padding-15 pk-text-center">
+			<a target="_blank" class="pk-text-sm pk-text-primary pk-hover-underline" href="http://www.hadsky.com/index.php?c=read&id=159">出现问题及解决办法</a>
+		</div>
+	</div>
+</div>
+<script>
+	$(function() {
+		var editbtn = $_GET('editbtn', location.search);
+		if(editbtn) {
+			$('#' + editbtn).click();
+		}
+		$('#_mkbtn').on('click', function() {
+			ppp({
+				type: 2,
+				title: "新建文件或目录",
+				submit: function(_id, _value) {
+					$.getJSON('index.php', {
+						c: "app",
+						a: "filesmanager",
+						path: $('#_currentpath').val(),
+						type: $('#_type_' + _id).val(),
+						mkname: _value,
+						json: 1
+					}, function(data) {
+						if(data['state'] == 'ok') {
+							ppp({
+								icon: 1,
+								type: 3,
+								content: "创建成功"
+							});
+							setTimeout(function() {
+								location.reload();
+							}, 1500);
+						} else {
+							ppp({
+								icon: 2,
+								content: data['datas']['msg']
+							});
+						}
+					});
+				},
+				complete: function(_id) {
+					$('#pkpopup_' + _id + ' .pk-popup-foot').append('<select id="_type_' + _id + '" class="pk-textbox" style="width:77px;float:left;height:32px;line-height:32px"><option value="mkfile">文件</option><option value="mkdir">目录</option></select>');
+				}
+			});
+		});
+	});
+
+	function gopath($path) {
+		var mpath = "{str_replace('\\', '\\\\',$_G['SYSTEM']['PATH'])}";
+		location.href = 'index.php?c=app&a=filesmanager:index&path=' + encodeURIComponent(mpath + '/' + $path) + '#workarea';
+	}
+
+	function _edit(path, title) {
+		var _pid = ppp({
+			type: 4,
+			shade: 1,
+			content: "正在打开文件..."
+		});
+		$.getJSON('index.php', {
+			c: "app",
+			a: "filesmanager",
+			path: path,
+			type: "edit",
+			json: 1
+		}, function(data) {
+			pkpopup.close(_pid);
+			if(data['state'] != 'ok') {
+				ppp({
+					type: 3,
+					icon: 2,
+					content: data['datas']['msg']
+				});
+				return false;
+			}
+			ppp({
+				type: 2,
+				title: title,
+				inputtype: 'textarea',
+				area: ['100%', '100%', '0', '0', '0', '0'],
+				noclose: 1,
+				nomove: 1,
+				submit: function(_id, _value) {
+					var __pid = ppp({
+						type: 4,
+						shade: 1,
+						content: "正在保存..."
+					});
+					$.post('index.php?c=app&a=filesmanager:index&type=save&path=' + encodeURIComponent(path), {
+						filecontent: _value
+					}, function(data2) {
+						pkpopup.close(__pid);
+						if(data2['state'] == 'ok') {
+							ppp({
+								type: 3,
+								icon: 1,
+								content: "保存成功"
+							});
+						} else {
+							ppp({
+								type: 0,
+								icon: 2,
+								content: data2['datas']['msg']
+							});
+						}
+					});
+				},
+				complete: function(_id) {
+					$('#pkpopup_' + _id + ' .pk-popup-foot .pk-popup-submit').html('保存');
+					$('#pkpopup_' + _id + ' .pk-popup-body').css({
+						'overflow-y': 'hidden'
+					}).find('.pk-popup-input').css({
+						height: '100%'
+					}).val(data['datas']['msg']);
+					var _obj = $('#pkpopup_' + _id + ' .pk-popup-input');
+					var _codemirror = CodeMirror.fromTextArea(_obj[0], {
+						lineNumbers: true, //是否显示行号
+						mode: "htmlmixed",
+						smartIndent: true, // 是否智能缩进
+						lineWrapping: true, //是否强制换行
+					});
+					//自动同步数据
+					setInterval(function() {
+						$(_obj).val(_codemirror.getValue());
+					}, 200);
+				}
+			});
+		});
+	}
+
+	function delFile(path, This) {
+		var p = $(This).parents('tr:eq(0)');
+		ppp({
+			type: 1,
+			icon: 3,
+			content: "确认是否删除该文件？",
+			submit: function() {
+				$.getJSON('index.php', {
+					c: "app",
+					a: "filesmanager:index",
+					type: "del",
+					path: path
+				}, function(data) {
+					if(data['state'] == 'ok') {
+						ppp({
+							type: 3,
+							icon: 1,
+							content: "删除成功"
+						});
+						p.remove();
+					} else {
+						ppp({
+							type: 0,
+							icon: 2,
+							content: data['datas']['msg']
+						});
+					}
+				});
+			}
+		});
+	}
+</script>

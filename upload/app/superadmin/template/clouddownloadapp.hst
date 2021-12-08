@@ -1,0 +1,38 @@
+<script>
+	$(function() {
+		$('#backandrefreshdiv').addClass('pk-hide');
+		var pid = ppp({
+			type: 4,
+			shade: 1,
+			content: "正在下载应用至网站，请稍后..."
+		});
+		$.getJSON('index.php', {
+			c: 'app',
+			a: 'superadmin:index',
+			s: 'appdownload',
+			dir: $_URI['DIR'],
+			type: $_URI['TYPE']
+		}, function(data) {
+			pkpopup.close(pid);
+			if(data['state'] == 'ok') {
+				ppp({
+					icon: 1,
+					shade: 1,
+					content: "应用下载成功，请前往后台 - 应用 - 本地" + ($_URI['TYPE'] == 'app' ? '应用' : '模板') + " - “" + decodeURIComponent($_GET('title')) + "”并点击“安装”完成最后操作。",
+					close: function() {
+						window.close();
+					}
+				});
+			} else {
+				ppp({
+					icon: 2,
+					shade: 1,
+					content: data['datas']['msg'],
+					close: function() {
+						window.close();
+					}
+				});
+			}
+		});
+	});
+</script>

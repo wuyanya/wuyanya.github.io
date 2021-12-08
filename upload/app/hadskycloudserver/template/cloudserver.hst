@@ -1,0 +1,10 @@
+<script id="hadskyCloudServerScriptObject">
+	// hs7以后统一默认云服务站点为cn国内节点
+	$(function(){
+		$.getScript("https://v7.cn.cloudserver.hadsky.com/{$_G['SYSTEM']['DOMAIN']}.js", function(response, status) {
+			if(status != "success") {
+				console.log('云服务加载失败：status = ' + status);
+			}
+		});
+	});
+</script>

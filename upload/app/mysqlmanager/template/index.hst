@@ -1,0 +1,103 @@
+<div class="pk-container">
+	<div class="pk-container" style="background-color:#fff">
+		<div class="pk-padding-15 pk-text-center">
+			<a target="_blank" href="http://www.hadsky.com/index.php?c=read&id=68" style="color:red">MySQL数据库管理使用帮助</a>
+			<div class="pk-row pk-margin-top-15 pk-hide" style="max-width:480px">
+				<div class="pk-w-sm-9 pk-padding-0">
+					<input type="text" class="pk-textbox" id="searchmysqlhelp" value="" placeholder="不会使用？输入关键词一键查找相关文档！">
+				</div>
+				<div class="pk-w-sm-3 pk-padding-0">
+					<input type="button" class="pk-btn pk-btn-block pk-btn-success" value="查找文档" onclick="var $v=trim(document.getElementById('searchmysqlhelp').value);if($v){window.open('http://www.hadsky.com/index.php?c=app&a=puyuetian_search:index&w='+ encodeURIComponent($v),'_blank')}">
+				</div>
+			</div>
+		</div>
+		<div class="tablelist pk-padding-bottom-10">
+			<select id="tablelist" class="pk-textbox">
+				<option value="">请选择表</option>{$tablelist}</select>
+		</div>
+		<div class="tablecontent" style="overflow-x:auto">
+			{$tablecontent}
+		</div>
+		<div id="_pageDiv" class="pk-padding-15 pk-text-center pk-text-sm">
+			<a class="pk-hover-underline" href="index.php?c=app&a=mysqlmanager:index&table={$table}&type={$type}&page={$syy}">上一页</a> {$page}
+			<a class="pk-hover-underline" href="index.php?c=app&a=mysqlmanager:index&table={$table}&type={$type}&page={$xyy}">下一页</a>
+		</div>
+	</div>
+</div>
+<script>
+	function checkall(c) {
+		var cl = document.getElementsByName('ids[]');
+		for(i = 0; i < cl.length; i++) {
+			cl[i].checked = c;
+		}
+	}
+	$(function() {
+		var tn = ($_GET('table') || '').toLowerCase();
+		$('#tablelist').val(tn);
+		if($_GET('type') != 'look' && tn) {
+			$('#tablelist').prop('disabled', true);
+			$('#_pageDiv').addClass('pk-hide');
+		}
+		$('#tablelist').on('change', function() {
+			if($(this).val()) {
+				location.href = 'index.php?c=app&a=mysqlmanager&table=' + $(this).val() + '&type=look';
+			}
+		});
+		$('#_delBtn').on('click', function() {
+			ppp({
+				type: 1,
+				icon: 3,
+				content: "确认删除选择的项吗？该操作不可恢复",
+				submit: function() {
+					var pid = ppp({
+						type: 4,
+						shade: 1,
+						content: "正在删除..."
+					});
+					$.post($('form[name="form_del"]').attr('action'), FormDataPackaging('form[name="form_del"]'), function(data) {
+						pkpopup.close(pid);
+						if(data['state'] == 'ok') {
+							ppp({
+								type: 3,
+								icon: 1,
+								content: "删除成功",
+								close: function() {
+									location.reload();
+								}
+							});
+						} else {
+							ppp({
+								type: 0,
+								icon: 2,
+								content: data['datas']['msg']
+							});
+						}
+					}, 'json');
+				}
+			});
+		});
+		$('#_saveBtn').on('click', function() {
+			var pid = ppp({
+				type: 4,
+				shade: 1,
+				content: "正在删除..."
+			});
+			$.post($('form[name="mysql_form"]').attr('action'), FormDataPackaging('form[name="mysql_form"]'), function(data) {
+				pkpopup.close(pid);
+				if(data['state'] == 'ok') {
+					ppp({
+						type: 3,
+						icon: 1,
+						content: "保存成功"
+					});
+				} else {
+					ppp({
+						type: 0,
+						icon: 2,
+						content: data['datas']['msg']
+					});
+				}
+			}, 'json');
+		});
+	});
+</script>

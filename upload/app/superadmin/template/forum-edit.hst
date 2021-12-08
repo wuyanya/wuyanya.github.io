@@ -1,0 +1,255 @@
+<style>
+	#app-superadmin-backbtn {
+		display: none;
+	}
+</style>
+<form name="form_save" method="post" action="index.php?c=app&a=superadmin:index&s=save&table=readsort">
+	<div class="pk-row pk-padding-bottom-15 pk-margin-bottom-15" style="border-bottom:solid 1px #458fce">
+		<label id="_labeltitle" class="pk-w-sm-3 _labeltext">编辑版块</label>
+		<div class="pk-w-sm-8">&nbsp;</div>
+	</div>
+
+	<input type="hidden" name="id" value="{Cnum($forumdata['id'],0)}">
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">本版块ID</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox" value="{Cnum($forumdata['id'],'新建版块')}" readonly>
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">上级版块ID</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" name="pid" data-value="{Cnum($forumdata['pid'],0)}" data-data="{$_G['TEMP']['BKDATAS']}">
+				<option value="0">此版块为父版块</option>
+			</select>
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">版块排序</label>
+		<div class="pk-w-sm-8">
+			<input type="number" class="pk-textbox" name="rank" value="{Cnum($forumdata['rank'],0)}" title="数字，从小到大" placeholder="数字，从小到大">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">版块名称</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox" name="title" value="{htmlspecialchars($forumdata['title'],ENT_QUOTES)}" placeholder="文字">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">版块介绍</label>
+		<div class="pk-w-sm-8">
+			<textarea rows="5" name="content" class="pk-textarea  pk-width-all" placeholder="文字">{htmlspecialchars($forumdata['content'],ENT_QUOTES)}</textarea>
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">版块标签</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox _labelsbox" name="label" value="{htmlspecialchars($forumdata['label'],ENT_QUOTES)}" placeholder="请输入新标签">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">URL跳转</label>
+		<div class="pk-w-sm-8">
+			<input type="url" class="pk-textbox" name="url" value="{htmlspecialchars($forumdata['url'],ENT_QUOTES)}" placeholder="若版块为跳转版块请在此填写URL地址">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">版块LOGO地址</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox" name="logourl" value="{htmlspecialchars($forumdata['logourl'],ENT_QUOTES)}" placeholder="填写LOGO链接地址" style="padding-left:44px">
+			<img id="forumLogo" src="{htmlspecialchars($forumdata['logourl'],ENT_QUOTES)}" style="position:absolute;width:36px;height:36px;top:1px;left:16px;border-radius:2px;cursor:pointer" title="上传图标" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADMklEQVRoQ+2ZQZbSQBCGqyA8cOXMDXChL+zgPZOteIOZG+AJZDZOshJXMG5mPIF6AscTzLglvgesktGFeANcDaNA+TomvJCkExJCQnCyhKS7vqrq+qu7EXL+YM7th3uArCO4vxF43H9bLwI8zNrD9vzTUmk0bpxM3PZwIyBq3WsEfLYrAAT03JDU6/8PgAhGgNTOIhIIhToAnbO5Y0eAgL4YktrMAkDUuk0EvLoH2LsIiFq3g4AvAeAAACYLgs6NrLxLOs22kkK1fu8CEJjxKw8BvTEktZMkROIATNwEXAx4RpJAj4yGOk4KInEAsd9tIeJ7LgBHbOICJQ7w5OvZUZHoU24BxEG3ijP84QdAAL+mQrnq16/sTASYIVYFeu1ZxEQvDFn9EMVYNlbQwk88hWzjWCoVaNFGgCoBsEXLDPE0WkEwdjW7FcqHvKhtDSCKl/3edRo2Rzz+9vT0Muy9nemFqoPzg8qfuwEiVM0eh+ijIaut3AD4COFEl5TDXADwyjAvjXZqDbDUeTC7YyWY9U+uB0906fTC/etOAdS0HhPAI6/x9PNWqNT9KlFqAP+8+7vl50VmcJCCO6sLG8cJkhqAqPWuEKBJPmJmqTdrAD2p4+5gWZQIaGSLWyoAbmV2Q9hwXuWGkSErdfv3mnbWdu9/zZI7m5rvTIXKMNaxStCemNde2xBOo5wArG+aU6H5XX41ZL9b47C9rxklIhhPS+XGOn1V6LkQD8AtSB4PA3YQzNOM0KpT6/cGgLCMhjXWpS4px2GqHxuAX1WCp3Q7hLfDs1Q6tEGMBcBLjTBvuVtu5yLlfDshgRpBu7zIAGHbyiAIp+IGC5tjFIKhLisN3riRAMLyPiQCn3VJWQpZlBQMOjCIBBBl0lWYVbWNk4Ibt9POmhyW657/BRjbeewumeuOxSutkSKw7mRB73FK5rpDe0prqgDsWAYQPJsXv3sI61Tcc6Exp2LbFkBGnSoAz801rUdeIfS/0PA04rxBHTc0EwIwJX+TBwlGuqz43jNsG2ATu5ffBvVUWwFgEk9I7v4kNgwSMkFKLwKxLY3x4VYiEMOOTD7Z34vuTNwZY9LcR+AvBGYVXrnpvFkAAAAASUVORK5CYII='" />
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">允许进入的用户组</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox _labelsbox" name="allowgroupids" value="{htmlspecialchars($forumdata['allowgroupids'],ENT_QUOTES)}" placeholder="请填写用户组id">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">发帖阅读权限值</label>
+		<div class="pk-w-sm-8">
+			<input type="number" class="pk-textbox" name="postlevel" value="{Cnum($forumdata['postlevel'],0)}" title="用户的阅读权限需达到此值才可在此版块发帖" placeholder="用户的阅读权限需达到此值才可发帖">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">回复阅读权限值</label>
+		<div class="pk-w-sm-8">
+			<input type="number" class="pk-textbox" name="replylevel" value="{Cnum($forumdata['replylevel'],0)}" title="用户的阅读权限需达到此值才可在此版块回复" placeholder="用户的阅读权限需达到此值才可回复">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">浏览阅读权限值</label>
+		<div class="pk-w-sm-8">
+			<input type="number" class="pk-textbox" name="looklevel" value="{Cnum($forumdata['looklevel'],0)}" title="用户的阅读权限需达到此值才可在此版块浏览帖子" placeholder="用户的阅读权限需达到此值才可浏览帖子">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">管理员UID</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox _labelsbox" name="adminuids" value="{$forumdata['adminuids']}" title="该版块的管理员UID，多个用,分开" placeholder="请填写管理员uid">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">禁止发帖</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" name="banpostread" data-value="{$forumdata['banpostread']}">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">版块状态</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" name="show" data-value="{$forumdata['show']}">
+				<option value="1">显示</option>
+				<option value="0">隐藏</option>
+			</select>
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">显示下级版块文章</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" name="showchildlist" data-value="{$forumdata['showchildlist']}">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">SEO标题</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox" name="webtitle" value="{htmlspecialchars($forumdata['webtitle'],ENT_QUOTES)}" placeholder="seo标题，为空则自动适配">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">SEO关键词</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox" name="webkeywords" value="{htmlspecialchars($forumdata['webkeywords'],ENT_QUOTES)}" placeholder="seo关键词，为空则自动适配">
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">SEO描述</label>
+		<div class="pk-w-sm-8">
+			<textarea rows="5" name="webdescription" class="pk-textarea" placeholder="seo描述，为空则自动适配">{htmlspecialchars($forumdata['webdescription'],ENT_QUOTES)}</textarea>
+		</div>
+		<div class="pk-w-sm-1"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext"></label>
+		<div class="pk-w-sm-8">
+			<button type="button" id="SubmitBtn">保存</button>
+		</div>
+	</div>
+</form>
+<script>
+	$(function() {
+		//版块列表
+		var _html = '';
+		var _o = $('select[name="pid"]');
+		var _fd = _o.data('data') || [];
+		for(var i = 0; i < 99; i++) {
+			for(var j = 0; j < _fd.length; j++) {
+				var d = _fd[j];
+				if(!i) {
+					if(!Cnum(d.pid)) {
+						_html += '<option value="' + d.id + '" data-i="' + i + '" style="font-weight:bold">' + d.title + '(ID:' + d.id + ')</option>';
+					}
+				} else {
+					var _o2 = _o.find('option[value="' + d.pid + '"][data-i="' + (i - 1) + '"]');
+					if(!_o2.length) {
+						continue;
+					}
+					var cs = Cnum(_o2.data('i'));
+					var _p = '';
+					for(var k = 0; k < cs; k++) {
+						_p += '&emsp;';
+					}
+					_o2.after('<option value="' + d.id + '" data-i="' + i + '">' + _p + '└ ' + d.title + '(ID:' + d.id + ')</option>');
+				}
+			}
+			if(!i) {
+				_o.append(_html);
+			}
+		}
+		//上传图片
+		$('input[name="logourl"]').on('change', function() {
+			$('#forumLogo').attr('src', $(this).val());
+		});
+		$('#forumLogo').on('click', function() {
+			var This = $(this);
+			var _id = '_' + randomString(7);
+			$('body').append('<input id="' + _id + '" type="file" class="pk-hide" accept="image/*">');
+			$('#' + _id).on('change', function() {
+				This.attr('src', getLocalFileUrl(this)).on('load', function() {
+					$('input[name="logourl"]').val(ImageToBase64(this));
+				});
+			}).click();
+		});
+		//保存事件
+		if(!Cnum($('input[name="id"]').val())) {
+			$('#_labeltitle').html('添加新版块');
+			$('#SubmitBtn').data({
+				after: function() {
+					//添加新版块之后刷新
+					setTimeout(function() {
+						location.reload();
+					}, 1500);
+				}
+			});
+		}
+		$('#SubmitBtn').data({
+			before: function() {
+				if(!trim($('input[name="title"]').val())) {
+					ppp({
+						type: 3,
+						icon: 3,
+						content: "请输入版块名称"
+					});
+					$('input[name="title"]').focus();
+					submitReturn = true;
+				}
+			}
+		});
+	});
+</script>

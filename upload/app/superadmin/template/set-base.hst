@@ -1,0 +1,134 @@
+<form name="form_save" method="post" action="index.php?c=app&a=superadmin:index&s=save&table=set">
+	<div class="pk-row pk-padding-bottom-15 pk-margin-bottom-15" style="border-bottom:solid 1px #458fce">
+		<label class="pk-w-sm-3 _labeltext pk-text-primary pk-text-nowrap">基本设置</label>
+		<div class="pk-w-sm-8"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-5">
+		<label class="pk-w-sm-3 _labeltext">全局CDN</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" data-value="{$_G['SET']['GLOBALCDN']}" name="globalcdn">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3">&nbsp;</label>
+		<div class="pk-w-sm-8 pk-text-xs">
+			<p>CDN资源提供商：cdn.hadsky.com</p>
+			<p>系统将自动把公共静态资源(js/css)转为CDN模式，如果出现网页加载缓慢的情况请关闭该功能。</p>
+			<p class="pk-text-danger">官方免费CDN静态资源库正处于测试阶段，请随时关注官方CDN动态信息以防因CDN资源问题给您带来损失。</p>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">PC首页</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" data-value="{$_G['SET']['DEFAULTPAGE']}" name="defaultpage">
+				<option value="home">网站首页</option>
+				<option value="forum">版块列表</option>
+				<option value="list">最新动态</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">手机首页</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" data-value="{$_G['SET']['PHONEDEFAULTPAGE']}" name="phonedefaultpage">
+				<option value="home">网站首页</option>
+				<option value="forum">版块列表</option>
+				<option value="list">最新动态</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">手机版子域名</label>
+		<div class="pk-w-sm-8">
+			<input class="pk-textbox _labelsbox" type="text" name="phonedomains" placeholder="请输入子域名" value="{htmlspecialchars($_G['SET']['PHONEDOMAINS'],ENT_QUOTES)}">
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">手机用户访问</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" data-value="{$_G['SET']['IFPCCOMEPHONEGO']}" name="ifpccomephonego">
+				<option value="0">保持默认</option>
+				<option value="1">自动使用手机模板</option>
+				<option value="2">自动跳转至手机域名</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">旧版用户中心跳转至新版</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" data-value="{$_G['SET']['OLDUSERCENTERTONEWUSERCENTER']}" name="oldusercentertonewusercenter">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">文字LOGO</label>
+		<div class="pk-w-sm-8">
+			<input class="pk-textbox" type="text" name="logotext" placeholder="HadSky" value="{htmlspecialchars($_G['SET']['LOGOTEXT'],ENT_QUOTES)}">
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">图片LOGO</label>
+		<div class="pk-w-sm-8">
+			<input class="pk-textbox" type="text" name="weblogo" placeholder="图片URL或base64值" value="{htmlspecialchars($_G['SET']['WEBLOGO'],ENT_QUOTES)}">
+			<img id="_Logo" src="{htmlspecialchars($_G['SET']['WEBLOGO'],ENT_QUOTES)}" style="border-radius:2px;cursor:pointer;margin-top:5px" title="上传LOGO" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADMklEQVRoQ+2ZQZbSQBCGqyA8cOXMDXChL+zgPZOteIOZG+AJZDZOshJXMG5mPIF6AscTzLglvgesktGFeANcDaNA+TomvJCkExJCQnCyhKS7vqrq+qu7EXL+YM7th3uArCO4vxF43H9bLwI8zNrD9vzTUmk0bpxM3PZwIyBq3WsEfLYrAAT03JDU6/8PgAhGgNTOIhIIhToAnbO5Y0eAgL4YktrMAkDUuk0EvLoH2LsIiFq3g4AvAeAAACYLgs6NrLxLOs22kkK1fu8CEJjxKw8BvTEktZMkROIATNwEXAx4RpJAj4yGOk4KInEAsd9tIeJ7LgBHbOICJQ7w5OvZUZHoU24BxEG3ijP84QdAAL+mQrnq16/sTASYIVYFeu1ZxEQvDFn9EMVYNlbQwk88hWzjWCoVaNFGgCoBsEXLDPE0WkEwdjW7FcqHvKhtDSCKl/3edRo2Rzz+9vT0Muy9nemFqoPzg8qfuwEiVM0eh+ijIaut3AD4COFEl5TDXADwyjAvjXZqDbDUeTC7YyWY9U+uB0906fTC/etOAdS0HhPAI6/x9PNWqNT9KlFqAP+8+7vl50VmcJCCO6sLG8cJkhqAqPWuEKBJPmJmqTdrAD2p4+5gWZQIaGSLWyoAbmV2Q9hwXuWGkSErdfv3mnbWdu9/zZI7m5rvTIXKMNaxStCemNde2xBOo5wArG+aU6H5XX41ZL9b47C9rxklIhhPS+XGOn1V6LkQD8AtSB4PA3YQzNOM0KpT6/cGgLCMhjXWpS4px2GqHxuAX1WCp3Q7hLfDs1Q6tEGMBcBLjTBvuVtu5yLlfDshgRpBu7zIAGHbyiAIp+IGC5tjFIKhLisN3riRAMLyPiQCn3VJWQpZlBQMOjCIBBBl0lWYVbWNk4Ibt9POmhyW657/BRjbeewumeuOxSutkSKw7mRB73FK5rpDe0prqgDsWAYQPJsXv3sI61Tcc6Exp2LbFkBGnSoAz801rUdeIfS/0PA04rxBHTc0EwIwJX+TBwlGuqz43jNsG2ATu5ffBvVUWwFgEk9I7v4kNgwSMkFKLwKxLY3x4VYiEMOOTD7Z34vuTNwZY9LcR+AvBGYVXrnpvFkAAAAASUVORK5CYII='" />
+		</div>
+	</div>
+	<div class="pk-row pk-padding-bottom-5">
+		<label class="pk-w-sm-3 _labeltext"></label>
+		<div class="pk-w-sm-8 pk-text-danger pk-text-sm">
+			该图片LOGO仅为系统默认的LOGO图片，由于模板不同所以设置LOGO的方式也不同，具体请参考当前使用的模板来进行设置。
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">站长寄语</label>
+		<div class="pk-w-sm-8">
+			<input class="pk-textbox" type="text" name="quotes" placeholder="文字" value="{htmlspecialchars($_G['SET']['QUOTES'],ENT_QUOTES)}">
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">备案号</label>
+		<div class="pk-w-sm-8">
+			<input class="pk-textbox" type="text" name="beianhao" placeholder="备案号" value="{htmlspecialchars($_G['SET']['BEIANHAO'],ENT_QUOTES)}">
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext"></label>
+		<div class="pk-w-sm-8">
+			<button id="SubmitBtn" type="button">保存</button>
+		</div>
+	</div>
+</form>
+<script>
+	$(function() {
+		//上传图片
+		$('input[name="weblogo"]').on('change', function() {
+			$('#_Logo').attr('src', $(this).val());
+		});
+		$('#_Logo').on('click', function() {
+			var This = $(this);
+			var _id = '_' + randomString(7);
+			$('body').append('<input id="' + _id + '" type="file" class="pk-hide" accept="image/*">');
+			$('#' + _id).on('change', function() {
+				This.attr('src', getLocalFileUrl(this)).on('load', function() {
+					$('input[name="weblogo"]').val(ImageToBase64(this));
+				});
+			}).click();
+		});
+	});
+</script>

@@ -1,0 +1,254 @@
+[
+	{
+		"icon": "home",
+		"title": "首页",
+		"s": "home",
+		"data": [
+			{
+				"icon": "info-circle",
+				"title": "程序信息",
+				"t": "info"
+			}, {
+				"icon": "expeditedssl",
+				"title": "站点状态",
+				"t": "websafe"
+			}, {
+				"icon": "ban",
+				"title": "IP黑名单",
+				"t": "ips"
+			}, {
+				"icon": "calendar",
+				"title": "后台日志",
+				"t": "logs"
+			}, {
+				"icon": "times-circle-o",
+				"title": "版权去除",
+				"t": "deletepowered"
+			}
+		]
+	}, {
+		"icon": "gears",
+		"title": "全局",
+		"s": "set",
+		"data": [
+			{
+				"icon": "gear",
+				"title": "基本设置",
+				"t": "base"
+			}, {
+				"icon": "navicon",
+				"title": "导航相关",
+				"t": "div"
+			}, {
+				"icon": "tv",
+				"title": "帖子显示",
+				"t": "show"
+			}, {
+				"icon": "edit",
+				"title": "发帖相关",
+				"t": "post"
+			}, {
+				"icon": "sign-in",
+				"title": "注册相关",
+				"t": "reg"
+			}, {
+				"icon": "paw",
+				"title": "SEO优化",
+				"t": "seo"
+			}, {
+				"icon": "money",
+				"title": "积分设置",
+				"t": "integral"
+			}, {
+				"icon": "upload",
+				"title": "上传设置",
+				"t": "upload"
+			}
+		]
+	}, {
+		"icon": "comments-o",
+		"title": "论坛",
+		"s": "forum",
+		"data": [
+			{
+				"icon": "plus-square",
+				"title": "添加新版块",
+				"t": "edit"
+			}, {
+				"icon": "list",
+				"title": "已创建的版块列表",
+				"t": "list"
+			}
+			, {
+				"icon": "list-alt",
+				"title": "帖子批量编辑",
+				"t": "editreads"
+			}
+			, {
+				"icon": "umbrella",
+				"title": "防灌水设置",
+				"t": "waterproof"
+			}
+			, {
+				"icon": "check-square-o",
+				"title": "待审核的帖子",
+				"t": "postcheck"
+			}
+			, {
+				"icon": "recycle",
+				"title": "帖子回收站",
+				"t": "recycle"
+			}
+		]
+	}, {
+		"icon": "users",
+		"title": "用户",
+		"s": "user",
+		"data": [
+			{
+				"icon": "search",
+				"title": "用户列表及搜索",
+				"t": "search"
+			}, {
+				"icon": "user-plus",
+				"title": "添加新用户",
+				"t": "seniormanagement"
+			}
+			, {
+				"icon": "group",
+				"title": "用户组管理",
+				"t": "group"
+			}
+			, {
+				"icon": "user-secret",
+				"title": "系统游客设置",
+				"t": "guest"
+			}
+			, {
+				"icon": "user-circle-o",
+				"title": "用户个人账号安全",
+				"t": "safe"
+			}
+		]
+	}, {
+		"icon": "cubes",
+		"title": "应用",
+		"s": "app",
+		"data": [
+			{
+				"icon": "plug",
+				"title": "本地插件",
+				"t": "&type=app"
+			}, {
+				"icon": "puzzle-piece",
+				"title": "本地模板",
+				"t": "&type=template"
+			}, {
+				"icon": "upload",
+				"title": "上传应用",
+				"t": "uploadapp"
+			}, {
+				"icon": "wrench",
+				"title": "开发应用",
+				"t": "development"
+			}
+		]
+	}, {
+		"icon": "shopping-bag",
+		"title": "商店",
+		"s": "appstore",
+		"data": [
+			{
+				"icon": "plug",
+				"title": "插件商店",
+				"t": "&type=app"
+			}, {
+				"icon": "puzzle-piece",
+				"title": "模板商店",
+				"t": "&type=template"
+			}
+		]
+	}, {
+		"icon": "paper-plane",
+		"title": "性能",
+		"s": "performance",
+		"data": [
+			{
+				"icon": "tachometer",
+				"title": "phpinfo探针",
+				"t": "phpinfo"
+			}, {
+				"icon": "database",
+				"title": "数据表信息",
+				"t": "mysqltable"
+			}
+		]
+	}, {
+		"icon": "cloud",
+		"title": "云端",
+		"s": "app",
+		"data": [
+			{
+				"icon": "mixcloud",
+				"title": "本地设置",
+				"t": "hadskycloudserver&type=app&ml=setting"
+			}, {
+				"icon": "user-secret",
+				"title": "站长中心",
+				"t": "http://www.hadsky.com/index.php?c=app&a=zhanzhang:index&s=websitesetting",
+				"target": "_blank"
+			}
+		]
+	}, {
+		"icon": "wrench",
+		"title": "工单",
+		"s": "order",
+		"data": [
+			{
+				"icon": "question-circle-o",
+				"title": "提交工单",
+				"t": "post"
+			}, {
+				"icon": "list-alt",
+				"title": "工单列表",
+				"t": "list"
+			}
+		]
+	}, {
+		"icon": "flask",
+		"title": "实验室",
+		"s": "",
+		"click":"ppp({title:\"严重警告\",icon:0,content:\"实验室所包含的功能如果设置不当将会导致不可预知的错误，严重可能导致站点崩溃，请在熟知该功能的情况下进行相关设置。\",shade:1,hideclose:1,nomove:1})",
+		"data": [
+			{
+				"icon": "file-text-o",
+				"title": "伪静态",
+				"t": "weijingtai&s=set"
+			},{
+				"icon": "fire",
+				"title": "防火墙",
+				"t": "firewall&s=lab"
+			},{
+				"icon": "shield",
+				"title": "攻击防护",
+				"t": "cache&s=home"
+			}, {
+				"icon": "inbox",
+				"title": "嵌入相关",
+				"t": "embed&s=set"
+			}, {
+				"icon": "motorcycle",
+				"title": "缓存设置",
+				"t": "cache&s=set"
+			}, {
+				"icon": "wrench",
+				"title": "系统加载项",
+				"t": "setload&s=performance"
+			}, {
+				"icon": "wrench",
+				"title": "其他高级功能",
+				"t": "set&s=lab"
+			}
+		]
+	}
+]

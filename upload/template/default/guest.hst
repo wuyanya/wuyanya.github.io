@@ -1,0 +1,11 @@
+<div class="pk-padding-top-15 pk-padding-bottom-15">
+	<img id="dlimg" class="pk-display-block pk-radius-all pk-float-left pk-cursor-pointer" title="登录一下更精彩^o^" src="template/default/img/guesthead.png" alt="guest" style="width:80px;height:80px">
+	<div class="pk-float-right pk-text-center" style="width:180px">
+		<div class="pk-text-sm pk-text-primary pk-padding-top-10" style="height:40px">登录之后更精彩~</div>
+		<div class="pk-padding-left-15 pk-padding-right-15">
+			<a id="loginbtn" class="pk-btn pk-btn-success pk-btn-sm" href="{ReWriteURL('login','','referer='.urlencode($_G['SYSTEM']['LOCATION']))}"> 登录 </a>
+			<a id="regbtn" class="pk-btn pk-btn-default pk-btn-sm" href="{ReWriteURL('reg','','referer='.urlencode($_G['SYSTEM']['LOCATION']))}"> 注册 </a>
+		</div>
+	</div>
+	<div class="pk-clear"></div>
+</div>

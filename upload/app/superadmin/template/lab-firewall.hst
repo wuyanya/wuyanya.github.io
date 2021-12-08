@@ -1,0 +1,155 @@
+<form name="form_save" method="post" action="">
+	<div class="pk-row pk-padding-bottom-15 pk-margin-bottom-15" style="border-bottom:solid 1px #458fce">
+		<label class="pk-w-sm-3 _labeltext pk-text-primary">防火墙设置</label>
+		<div class="pk-w-sm-8"></div>
+	</div>
+
+	<div class="pk-row pk-margin-bottom-15 pk-text-center pk-text-danger pk-text-sm">
+		puyuetianPHP框架底层防火墙，该功能会轻微加重服务器负担，如果您的服务器自带了防火墙或者您开启了与该防火墙功能重复的安全软件可以关闭该防火墙功能。
+	</div>
+
+	<input type="hidden" name="range" value="{htmlspecialchars(HADSKY_FIREWALL_RANGE)}" />
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">防火墙开关</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" data-value="{htmlspecialchars(HADSKY_FIREWALL_SWITCH)}" name="switch">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">记录日志</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox" name="writelog" data-value="{htmlspecialchars(HADSKY_FIREWALL_WRITELOG)}">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-margin-bottom-15 pk-background-color-primary" style="height:1px;width:100%"></div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">GET-URI过滤</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox _glkg" name="uri">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">GET-参数过滤</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox _glkg" name="get">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">POST过滤</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox _glkg" name="post">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">Cookie过滤</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox _glkg" name="cookie">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">User-Agent过滤</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox _glkg" name="user-agent">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-margin-bottom-15 pk-background-color-primary" style="height:1px;width:100%"></div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">用户白名单</label>
+		<div class="pk-w-sm-8">
+			<input class="pk-textbox _labelsbox" name="whiteuid" value="{htmlspecialchars(HADSKY_FIREWALL_WHITELIST_UID?HADSKY_FIREWALL_WHITELIST_UID:'')}" placeholder="请输入用户ID">
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">用户组白名单</label>
+		<div class="pk-w-sm-8">
+			<input class="pk-textbox _labelsbox" name="whiteugid" value="{htmlspecialchars(HADSKY_FIREWALL_WHITELIST_UGID?HADSKY_FIREWALL_WHITELIST_UGID:'')}" placeholder="请输入用户组ID">
+		</div>
+	</div>
+	
+	<div class="pk-row pk-margin-bottom-15 pk-text-center pk-text-sm">
+		如果因为操作不当或设置不当导致您被拦截且无法进入系统，请在<a class="pk-text-danger pk-hover-underline" target="_blank" href="https://www.hadsky.com/read-4858-1.html">https://www.hadsky.com/read-4858-1.html</a>查看处理办法。
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext"></label>
+		<div class="pk-w-sm-8">
+			<button id="smbtn" class="pk-btn pk-btn-primary" type="button">保存</button>
+			<a target="_blank" class="pk-btn pk-btn-danger" href="index.php?c=app&a=filesmanager:index&path=puyuetian/firewall/rules">规则配置</a>
+			<a target="_blank" class="pk-btn pk-btn-success" href="index.php?c=app&a=filesmanager:index&path=logs/firewall">查看日志</a>
+		</div>
+	</div>
+</form>
+<script>
+	$(function() {
+		var firewall_range = $('form[name="form_save"] input[name="range"]').val().split(',');
+		for(var i = 0; i < firewall_range.length; i++) {
+			$('form[name="form_save"] select[name="' + firewall_range[i] + '"] option[value="1"]').prop('selected', true);
+		}
+		$('#smbtn').on('click', function() {
+			var pid = ppp({
+				type: 4,
+				shade: 1,
+				content: '保存中...'
+			});
+			var a = $('form[name="form_save"] ._glkg');
+			var b = '';
+			for(var i = 0; i < a.length; i++) {
+				if(Cnum($(a[i]).val())) {
+					b += ',' + $(a[i]).attr('name');
+				}
+			}
+			if(b) {
+				b = b.substr(1);
+			}
+			$('form[name="form_save"] input[name="range"]').val(b);
+			var strings = FormDataPackaging('form[name="form_save"]');
+			$.post('index.php?c=app&a=superadmin:index&t=firewall&s=lab&submit=1', strings, function(data) {
+				pkpopup.close(pid);
+				if(data['state'] != 'ok') {
+					ppp({
+						icon: 2,
+						content: data['datas']['msg'] || '未知错误'
+					});
+					return;
+				}
+				ppp({
+					type: 3,
+					icon: 1,
+					content: '保存成功'
+				});
+			}, 'json');
+		});
+	});
+</script>

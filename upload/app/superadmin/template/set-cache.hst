@@ -1,0 +1,80 @@
+<form name="form_save" method="post" action="index.php?c=app&a=superadmin:index&s=save&table=set">
+	<div class="pk-row pk-padding-bottom-15 pk-margin-bottom-15" style="border-bottom: solid 1px #458fce;">
+		<label class="pk-w-sm-3 pk-padding-top-5 pk-text-bold pk-text-right pk-text-primary pk-text-nowrap">缓存设置</label>
+		<div class="pk-w-sm-8"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 pk-padding-top-5 pk-text-bold pk-text-right">模板缓存</label>
+		<div class="pk-w-sm-8">
+			<select class="pk-textbox " data-value="{$_G['SET']['PHPCACHE_OPEN']}" name="phpcache_open">
+				<option value="0">关闭</option>
+				<option value="1">开启</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-5">
+		<label class="pk-w-sm-3 pk-padding-top-5 pk-text-bold pk-text-right">缓存过期时间</label>
+		<div class="pk-w-sm-4">
+			<input id="cachetimeout" class="pk-textbox" type="number" name="phpcache_timeout" value="{$_G['SET']['PHPCACHE_TIMEOUT']}" placeholder="单位秒，默认不过期，不要设置过小否则会加重服务器负担，建议120" title="单位秒，默认不过期，不要设置过小否则会加重服务器负担，建议120">
+		</div>
+		<div class="pk-w-sm-4 pk-padding-top-5 pk-text-bold">分钟</div>
+	</div>
+	<div class="pk-row pk-padding-bottom-5">
+		<label class="pk-w-sm-3">&nbsp;</label>
+		<div class="pk-w-sm-8">
+			<button type="button" class="pk-btn pk-btn-default pk-btn-sm " onclick="$('#cachetimeout').val('10')">10分钟</button>
+			<button type="button" class="pk-btn pk-btn-default pk-btn-sm " onclick="$('#cachetimeout').val('30')">30分钟</button>
+			<button type="button" class="pk-btn pk-btn-default pk-btn-sm " onclick="$('#cachetimeout').val('60')">1小时</button>
+			<button type="button" class="pk-btn pk-btn-default pk-btn-sm " onclick="$('#cachetimeout').val('120')">2小时</button>
+			<button type="button" class="pk-btn pk-btn-default pk-btn-sm " onclick="$('#cachetimeout').val('360')">6小时</button>
+			<button type="button" class="pk-btn pk-btn-default pk-btn-sm " onclick="$('#cachetimeout').val('720')">12小时</button>
+			<button type="button" class="pk-btn pk-btn-default pk-btn-sm " onclick="$('#cachetimeout').val('1440')">1天</button>
+			<button type="button" class="pk-btn pk-btn-default pk-btn-sm " onclick="$('#cachetimeout').val('2880')">2天</button>
+			<button type="button" class="pk-btn pk-btn-default pk-btn-sm " onclick="$('#cachetimeout').val('10080')">1周</button>
+		</div>
+	</div>
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3">&nbsp;</label>
+		<div class="pk-w-sm-8 pk-text-xs pk-text-danger">
+			缓存功能适用于访问量大的站点，访问量小的站点无需理会该功能，注意事项：开启缓存后对模板文件进行修改将不会及时生效。
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 pk-padding-top-5 pk-text-bold pk-text-right"></label>
+		<div class="pk-w-sm-8">
+			<button type="button" id="SubmitBtn">保存</button>
+			<button type="button" id="refreshBtn" class="pk-btn pk-btn-danger">刷新缓存</button>
+		</div>
+	</div>
+</form>
+<script>
+	$(function(){
+		$('#refreshBtn').on('click', function() {
+			var This = $(this);
+			var pid = ppp({
+				type:4,
+				shade:1,
+				content:"正在刷新..."
+			});
+			$.getJSON("index.php?c=app&a=superadmin:index&s=savecache&do=php_refresh&chkcsrfval={$_G['CHKCSRFVAL']}&json=1", function(data) {
+				pkpopup.close(pid);
+				if(data['state'] == 'ok') {
+					ppp({
+						type:3,
+						icon:1,
+						content:"刷新成功"
+					});
+				}else{
+					ppp({
+						type:0,
+						icon:2,
+						content:data['datas']['msg']
+					});
+				}
+			});
+		});
+	});
+</script>

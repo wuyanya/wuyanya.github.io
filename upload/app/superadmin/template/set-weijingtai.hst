@@ -1,0 +1,39 @@
+<form name="form_save" method="post" action="index.php?c=app&a=superadmin:index&s=save&table=set">
+	<div class="pk-row pk-padding-bottom-15 pk-margin-bottom-15" style="border-bottom:solid 1px #458fce">
+		<label class="pk-w-sm-3 _labeltext pk-text-primary">伪静态设置</label>
+		<div class="pk-w-sm-8"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-5">
+		<label class="pk-w-sm-3 pk-padding-top-5 pk-text-bold pk-text-right">伪静态</label>
+		<div class="pk-w-sm-8">
+			<select name="rewriteurl" data-value="{$_G['SET']['REWRITEURL']}" class="pk-textbox">
+				<option value="1">开启</option>
+				<option value="0">关闭</option>
+			</select>
+		</div>
+	</div>
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3">&nbsp;</label>
+		<div class="pk-w-sm-8 pk-text-xs pk-text-danger">
+			若开启后网站404，请参考<a target="_blank" class="pk-text-primary pk-hover-underline" href="https://www.hadsky.com/read-3967-1.html">https://www.hadsky.com/read-3967-1.html</a>进行设置，若您在参考下还不会设置可以联系我们帮您设置（50元/次）。
+		</div>
+	</div>
+	
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">所有用户伪静态</label>
+		<div class="pk-w-sm-8">
+			<select name="mustrewriteurl" data-value="{$_G['SET']['MUSTREWRITEURL']}" class="pk-textbox">
+				<option value="0">关闭（伪静态仅对游客起作用）</option>
+				<option value="1">开启（对所有用户起作用）</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext"></label>
+		<div class="pk-w-sm-8">
+			<button type="button" id="SubmitBtn">保存</button>
+		</div>
+	</div>
+</form>

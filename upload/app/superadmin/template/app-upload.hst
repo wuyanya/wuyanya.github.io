@@ -1,0 +1,86 @@
+<div class="pk-row pk-padding-bottom-15 pk-margin-bottom-15" style="border-bottom:solid 1px #458fce">
+	<label class="pk-w-sm-3 _labeltext pk-text-primary">上传应用/更新系统</label>
+	<div class="pk-w-sm-8"></div>
+</div>
+
+<div id="formDiv">
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">选择文件</label>
+		<div class="pk-w-sm-8">
+			<input type="file" name="file" accept=".hsa,.zip" style="height:38px;border:solid 1px #ccc;padding:5px;">
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">注意事项</label>
+		<div class="pk-w-sm-8 pk-text-danger pk-text-xs">
+			<p style="line-height:38px">
+				该方式可以手动上传文件或安装应用，上传的文件风险需您自行担负，仅允许上传HS应用hsa文件或zip压缩包，上传压缩包之前请确保包内以template或app目录开始且该目录下有相应的应用目录。<br>若更新系统请按照相应版本依次更新，否则可能发生不可预料的问题。
+			</p>
+		</div>
+	</div>
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3">&nbsp;</label>
+		<div class="pk-w-sm-8 pk-text-xs pk-text-danger">
+			<button type="button" id="_uploadbtn" class="pk-btn pk-btn-danger">上传</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function() {
+		$('#_uploadbtn').on('click', function() {
+			var formData = new FormData();
+			var _file = $('#formDiv input[name=file]')[0].files[0] || false;
+			if(!_file) {
+				ppp({
+					type: 3,
+					icon: 2,
+					content: "请先选择需要上传文件再操作"
+				});
+				return false;
+			}
+			formData.append('file', _file);
+			ppp({
+				type: 1,
+				icon: 3,
+				shade: 1,
+				content: "您已了解风险并确认上传？",
+				submit: function() {
+					var pid = ppp({
+						type: 4,
+						content: "正在上传请稍后",
+						shade: 1
+					});
+					$.ajax({
+						type: 'POST',
+						url: 'index.php?c=app&a=superadmin:index&s=app&t=uploadapp&submit=1',
+						data: formData,
+						async: true,
+						processData: false,
+						contentType: false,
+						dataType: 'json',
+						beforeSend: function() {},
+						success: function(data) {
+							pkpopup.close(pid);
+							if(data['state'] == 'ok') {
+								ppp({
+									icon: 1,
+									content: "上传成功，请点击“本地应用”或“本地模板”对刚才上传的应用进行“安装”操作，若为系统更新无需任何操作。",
+									close: function() {
+										location.reload();
+									}
+								});
+							} else {
+								ppp({
+									icon: 2,
+									content: data['datas']['msg']
+								});
+							}
+						}
+					});
+				}
+			});
+		});
+	});
+</script>

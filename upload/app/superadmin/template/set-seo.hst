@@ -1,0 +1,41 @@
+<form name="form_save" method="post" action="index.php?c=app&a=superadmin:index&s=save&table=set">
+	<div class="pk-row pk-padding-bottom-15 pk-margin-bottom-15" style="border-bottom:solid 1px #458fce">
+		<label class="pk-w-sm-3 _labeltext pk-text-primary">SEO相关</label>
+		<div class="pk-w-sm-8"></div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">网站标题</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox" name="webtitle" value="{$_G['SET']['WEBTITLE']}">
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">网站关键词</label>
+		<div class="pk-w-sm-8">
+			<textarea rows="5" class="pk-textarea  pk-width-all" name="webkeywords">{$_G['SET']['WEBKEYWORDS']}</textarea>
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">网站文字介绍</label>
+		<div class="pk-w-sm-8">
+			<textarea rows="5" class="pk-textarea" name="webdescription">{$_G['SET']['WEBDESCRIPTION']}</textarea>
+		</div>
+	</div>
+	
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext">网站优化追加词</label>
+		<div class="pk-w-sm-8">
+			<input type="text" class="pk-textbox" name="webaddedwords" value="{$_G['SET']['WEBADDEDWORDS']}">
+		</div>
+	</div>
+
+	<div class="pk-row pk-padding-bottom-15">
+		<label class="pk-w-sm-3 _labeltext"></label>
+		<div class="pk-w-sm-8">
+			<button type="button" id="SubmitBtn">保存</button>
+		</div>
+	</div>
+</form>
